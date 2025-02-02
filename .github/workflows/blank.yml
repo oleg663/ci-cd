@@ -22,8 +22,9 @@ jobs:
         run: java -version
         
       - name: Install Maven
-        run: sudo apt-get update
-        run: sudo apt-get install -y maven
+        run: |
+         sudo apt-get update
+         sudo apt-get install -y maven
 
       - name: Install Dependencies
         run: mvn compile
