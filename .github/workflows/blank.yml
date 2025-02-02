@@ -9,13 +9,10 @@ on:
 
 jobs:
   my_job:
-  runs-on: self-hosted
-=======
-  my_job:
     runs-on: self-hosted
+    steps:
       - name: Show directory
         run: pwd
 
       - name: List files
         run: ls -al
-
