@@ -24,16 +24,6 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
       
-      # 3. (За потреби) Встановити Maven, якщо немає на образі
-      - name: Install Maven
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y maven
-      
-      # 4. Завантажуємо залежності й компілюємо (Maven)
-      - name: Build project
-        run: mvn compile
-      
       # 5. Запускаємо тести
       - name: Run tests
         run: mvn test
