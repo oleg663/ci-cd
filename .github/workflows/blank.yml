@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          ref: jenk
+          ref: main
 
       - name: Show directory
         run: pwd
