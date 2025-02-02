@@ -8,13 +8,11 @@ on:
   workflow_dispatch:
 
 jobs:
-<<<<<<< HEAD
   my_job:
   runs-on: self-hosted
 =======
-  my_first_job:
+  my_job:
     runs-on: self-hosted
->>>>>>> 26887c47ab6bf5c881900c126bc676c1580894d4
       - name: Show directory
         run: pwd
 
