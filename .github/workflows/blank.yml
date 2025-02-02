@@ -1,29 +1,34 @@
 name: Continuous Integration
 
 on:
-  # 1) Запускати CI при пуші в main
+  
   push:
     branches: [ "main" ]
-  # 2) Дозволити ручний запуск зі сторінки Actions
+  
   workflow_dispatch:
 
 jobs:
   build-and-test:
-    # Вибираємо, на якій ОС буде виконуватися
+    
     runs-on: self-hosted
 
     steps:
-      # 1. Клонування репозиторію
+      
       - name: Checkout code
         uses: actions/checkout@v4
       
-      # 2. Встановлюємо Java (JDK)
+      
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'zulu'
+          
+      - name: Build project
+        run: mvn compile
+        
+      - name: Build application
+        run: 'mvn package -DskipTests'
       
-      # 5. Запускаємо тести
       - name: Run tests
         run: mvn test
