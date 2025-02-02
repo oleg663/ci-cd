@@ -1,54 +1,39 @@
 name: Continuous Integration
 
 on:
+  # 1) Запускати CI при пуші в main
   push:
-    branches:
-      - main
-      - jenk
+    branches: [ "main" ]
+  # 2) Дозволити ручний запуск зі сторінки Actions
   workflow_dispatch:
 
 jobs:
-  my_first_job:
+  build-and-test:
+    # Вибираємо, на якій ОС буде виконуватися
     runs-on: self-hosted
 
     steps:
-      - name: Set up JDK 17
+      # 1. Клонування репозиторію
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # 2. Встановлюємо Java (JDK)
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'zulu'
-
-      - name: Show Java version
-        run: java -version
-        
+      
+      # 3. (За потреби) Встановити Maven, якщо немає на образі
       - name: Install Maven
         run: |
-         sudo apt-get update
-         sudo apt-get install -y maven
-
-      - name: Install Dependencies
-        run: mvn compile
-       
-      - name: Check Maven
-        run: mvn -v
+          sudo apt-get update
+          sudo apt-get install -y maven
       
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          ref: main
-
-      - name: Show directory
-        run: pwd
-
-      - name: List files
-        run: ls -al
-
-      - name: Install Dependencies
+      # 4. Завантажуємо залежності й компілюємо (Maven)
+      - name: Build project
         run: mvn compile
-
-      - name: Build application
-        run: mvn package -DskipTests
-
-      - name: Test application
+      
+      # 5. Запускаємо тести
+      - name: Run tests
         run: mvn test
