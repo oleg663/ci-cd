@@ -22,9 +22,9 @@ jobs:
         run: java -version
       
       - name: Checkout code
-        token: ${{ secrets.GITHUB_TOKEN }}
         uses: actions/checkout@v4
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           ref: jenk
 
       - name: Show directory
